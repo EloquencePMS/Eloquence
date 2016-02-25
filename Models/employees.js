@@ -12,7 +12,7 @@ var Employee  = bookshelf.Model.extend({
     hasTimestamps: false,
 
     jobs:function() {
-        return this.belongsTo('Job', 'jobId');
+        return this.belongsTo('Job');
     }
 
 

@@ -5,7 +5,7 @@
 
 var bookshelf = require('../bookshelf.js');
 
-require('/Users/MichaelLeffert/Desktop/Capstone/Eloquence/Models/employees.js');
+require('./employees.js');
 
 var Job  = bookshelf.Model.extend({
     tableName:'Job',
