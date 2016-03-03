@@ -9,4 +9,4 @@ var employeeCollection = bookshelf.Collection.extend({
     model:Employee
 });
 
-moduleExports = employeeCollection
+moduleExports = bookshelf.Collection('employeeCollection', employeeCollection);

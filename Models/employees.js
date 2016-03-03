@@ -5,19 +5,19 @@
 
 var bookshelf = require('../bookshelf.js');
 
-require('./jobs');
+var Job = require('./jobs');
 
 var Employee  = bookshelf.Model.extend({
-    tableName:'Employee',
+    tableName:'employees',
+    idAttribute:'empId',
     hasTimestamps: false,
 
     jobs:function() {
-        return this.belongsTo('Job');
+        return this.belongsTo(Job, 'jobId');
     }
 
 
-
-
 });
+
 
 module.exports = bookshelf.model('Emplyoee', Employee);

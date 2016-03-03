@@ -5,14 +5,22 @@
 
 var bookshelf = require('../bookshelf.js');
 
-require('./employees.js');
+var Employee = require('./employees.js');
+var Department = require('./departments.js')
 
 var Job  = bookshelf.Model.extend({
-    tableName:'Job',
+    tableName:'jobs',
+    idAttribute:'jobId',
+
     hasTimestamps: false,
 
     employees:function() {
-        return this.hasMany('Emplpoyee');
+        return this.hasMany(Employee, 'empId');
+    },
+
+
+    departments:function(){
+        return this.belongsTo(Department, 'departmentId');
     }
 
 
