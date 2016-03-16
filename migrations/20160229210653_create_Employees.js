@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       table.string('title');
       table.string('description');
       table.integer('function');
-      table.integer('departmentId').references(departments.id)
+      table.integer('departmentId').unsigned().references('departments.depId');
   }).createTable('employees', function(table){
       table.increments('empId').primary();
       table.string('fName');
@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
       table.integer('zip');
       table.string('phone');
       table.string('email');
-      table.integer('jobId').references('jobs.id');
+      table.integer('jobId').unsigned().references('jobs.jobId');
       table.double('hourlyWage');
       table.double('salary');
   });
