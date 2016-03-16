@@ -4,11 +4,11 @@ exports.up = function(knex, Promise) {
       table.increments('depId').primary();
       table.string('name');
   }).createTable('jobs', function(table){
-      table.increments('d').primary();
+      table.increments('jobId').primary();
       table.string('title');
       table.string('description');
       table.integer('function');
-      table.integer('departmentId').references(departments.id)
+      table.integer('departmentId').references('departments.id')
   }).createTable('employees', function(table){
       table.increments('empId').primary();
       table.string('fName');
