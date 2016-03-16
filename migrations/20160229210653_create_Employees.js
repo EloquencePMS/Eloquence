@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       table.increments('depId').primary();
       table.string('name');
   }).createTable('jobs', function(table){
-      table.increments('d').primary();
+      table.increments('jobId').primary();
       table.string('title');
       table.string('description');
       table.integer('function');

@@ -10,13 +10,19 @@
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
+    "express-session": "",
     "hjs": "~0.0.6",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
     "knex":"*",
+    "connect-session-knex": "",
     "bookshelf":"*",
     "bluebird":"*",
-    "lodash": "*"
+    "lodash": "*",
+    "nodemon": "*",
+    "passport": "",
+    "passport-unique-token":"",
+    "bcrypt-nodejs": ""
 
   }
 }

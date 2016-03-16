@@ -4,7 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
+var KnexSessionStore = require('connect-session-knex')(session);
+var knex = require('knex')(require('./knexFile')[process.env.NODE_ENV]);
+var passport =  require('passport')
 
 
 //var routes = require('./routes/index');
@@ -22,11 +25,31 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+app.use(session({
+  store: new KnexSessionStore({
+    knex: knex
+
+  }),
+  resave: false,
+  saveUninitialized: false,
+  rolling:true,
+  secret: '7dihh3d&ek6%&xy6s9rkq5tk0fgi@)qc6ym18fx6gyyw#a4-ox',
+  cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // 1 week
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
+
 require('./routes')(app);
 
 
-//app.use('/', routes);
-//app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -34,7 +57,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
 // error handlers
 
 // development error handler
