@@ -1,5 +1,6 @@
 
 exports.up = function(knex, Promise) {
+<<<<<<< HEAD
     return knex.schema.createTable('departments', function(table){
         table.increments('depId').primary();
         table.string('name');
@@ -23,6 +24,31 @@ exports.up = function(knex, Promise) {
         table.double('hourlyWage');
         table.double('salary');
     });
+=======
+  return knex.schema.createTable('departments', function(table){
+      table.increments('depId').primary();
+      table.string('name');
+  }).createTable('jobs', function(table){
+      table.increments('jobId').primary();
+      table.string('title');
+      table.string('description');
+      table.integer('function');
+      table.integer('departmentId').unsigned().references('departments.depId');
+  }).createTable('employees', function(table){
+      table.increments('empId').primary();
+      table.string('fName');
+      table.string('lName');
+      table.string('street');
+      table.string('city');
+      table.string('state');
+      table.integer('zip');
+      table.string('phone');
+      table.string('email');
+      table.integer('jobId').unsigned().references('jobs.jobId');
+      table.double('hourlyWage');
+      table.double('salary');
+  });
+>>>>>>> 5d6fc718a370835463b8c7bb0e66292b88087c80
 };
 
 exports.down = function(knex, Promise) {
