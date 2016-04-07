@@ -4,9 +4,9 @@
 'use strict';
 
 var bookshelf = require('../bookshelf.js');
-var bcrypt = require('bcrypt-nodejs');
 
 var Job = require('./jobs');
+var User = require('./users');
 
 var Employee  = bookshelf.Model.extend({
     tableName:'employees',
@@ -16,13 +16,11 @@ var Employee  = bookshelf.Model.extend({
     jobs:function() {
         return this.belongsTo(Job, 'jobId');
     },
+    
+    user:function () {
+        return this.hasOne(User);
+    }
 
-    hashPassword: function(password){
-    return bcrypt.hashSync(password, bcrypt.genSaltSync());
-    },
-    validatePassword: function (password){
-    return bcrypt.compareSync(password, this.local.password);
-}
 
 
 

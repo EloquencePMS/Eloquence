@@ -5,14 +5,20 @@ var Employee = require('../Models/employees');
 var express           = require('express'),
     employeeController   = express.Router();
 var bookshelf = require('../bookshelf.js');
+var check = require('./checkToken');
+
 
 var employeeCollection = bookshelf.Collection.extend({
     model:Employee
 });
 
+
+
+
+
 employeeController
     .route('/:id')
-    .get(function(req, res, next){
+    .get(check, function(req, res, next){
         employeeCollection.query({where: {empId: req.params.id}})
             .fetch({withRelated: ['jobs', 'jobs.departments']})
             .then(function(employee){
@@ -20,7 +26,7 @@ employeeController
             });
 
     })
-    .put(function(req, res, next){
+    .put(check, function( req, res, next){
     Employee.forge({empId: req.params.id})
         .fetch({require: true})
         .then(function(employee){
@@ -41,7 +47,7 @@ employeeController
             })
         });
         })
-    .delete(function(req, res, next){
+    .delete(check, function(req, res, next){
         new Employee({empId: req.params.id})
              .destroy()
              .then(function(employee){
@@ -55,14 +61,14 @@ employeeController
 
 employeeController
     .route('/')
-    .get(function(req, res, next){
+    .get(check, function(req, res, next){
         employeeCollection.forge().fetch({withRelated:['jobs', 'jobs.departments']})
             .then(function(employee){
                 res.send(employee.toJSON());
             })
 
     })
-    .post(function(req, res, next){
+    .post(check, function(req, res, next){
         Employee.forge({
 
             fName: req.body.fName,
@@ -83,6 +89,7 @@ employeeController
 
 
     });
+
 
 
 

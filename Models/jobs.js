@@ -6,7 +6,7 @@
 var bookshelf = require('../bookshelf.js');
 
 var Employee = require('./employees.js');
-var Department = require('./departments.js')
+var Department = require('./departments.js');
 
 var Job  = bookshelf.Model.extend({
     tableName:'jobs',

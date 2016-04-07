@@ -1,6 +1,6 @@
 var _         = require('lodash'),
     fs        = require('fs'),
-    excluded  = ['index'];
+    excluded  = ['index', 'checkToken'];
 
 module.exports = function(app) {
   fs.readdirSync(__dirname).forEach(function(file) {
