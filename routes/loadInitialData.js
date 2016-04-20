@@ -6,14 +6,20 @@ var express           = require('express'),
     initialDataController   = express.Router();
 var bookshelf = require('../bookshelf.js');
 var check = require('./checkToken');
+var Rooms = require('../Models/roomNumber');
+
+
 
 var initialdate =  new Date();
 var date = new Date(initialdate.getFullYear(), initialdate.getMonth(), initialdate.getDate());
 var checkins;
 var checkouts;
 var stayover;
+var rooms
 
-
+var roomCollection = bookshelf.Collection.extend({
+   model:Rooms
+});
 var checkinCollection = bookshelf.Collection.extend({
     model:Stay
 });
@@ -42,14 +48,25 @@ initialDataController
             stayOverCollection.query({where: {status: "In House"}, whereNot:{checkOutDate: date}} ).fetch()
                 .then(function (stay) {
                     stayover = stay;
-                    res.status(200).json({
-                        checkIns: checkins.toJSON(),
-                        checkOuts: checkouts.toJSON(),
-                        stayOver: stayover.toJSON()
+
+                    }).then(function () {
+
+                roomCollection.forge().fetch({withRelated: ['housekeepingStatus']})
+                    .then(function (room) {
+                        rooms = room;
+                        res.status(200).json({
+                            checkIns: checkins.toJSON(),
+                            checkOuts: checkouts.toJSON(),
+                            stayOver: stayover.toJSON(),
+                            rooms:rooms.toJSON()});
+
+                    });
+
+                    });
                     });
                 });
-            });
-        });
+
+
 
 
 
