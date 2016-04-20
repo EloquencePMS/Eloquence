@@ -1,17 +1,20 @@
 
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable('taxProfile', function(table){
+    return knex.schema.createTable('taxRate',function(table){
+        table.increments('taxRateId').primary();
+        table.decimal('state', 9, 3);
+        table.decimal('county', 9, 3);
+        table.decimal('occupancy', 9, 3);
+    }).createTable('taxProfile', function(table){
         table.increments('taxId').primary();
-        table.double('state', 3);
-        table.double('county', 3);
-        table.double('occupency', 3);
-        table.boolean('st');
-        table.boolean('ct');
-        table.boolean('oc');
+        table.integer('taxRateId').unsigned().references('taxRate.taxRateId'),
+        table.boolean('state');
+        table.boolean('county');
+        table.boolean('occupancy');
     }).createTable('rate', function(table){
         table.increments('rateId').primary();
         table.string('name');
-        table.double('rate', 2);
+        table.decimal('rate', 9, 2);
         table.string('description');
     }).createTable('company', function(table){
         table.increments('companyId').primary();

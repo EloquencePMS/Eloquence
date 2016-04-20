@@ -23,16 +23,5 @@ var User  = bookshelf.Model.extend({
 
     
 });
-// User.methods.setPassword = function (password){
-//     var salt = bcrypt.genSaltSync( 1024 );
-//     return bcrypt.hashSync( password, salt );
-// }
-// User.methods.isPasswordValid = function (password) {
-//     if(!this.password){
-//         return false;
-//     }else{
-//         return bcrypt.compareSync(password, this.password);
-//     }
-//
-// }
+
 module.exports = bookshelf.model('User', User);

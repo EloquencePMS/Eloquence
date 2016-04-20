@@ -15,7 +15,7 @@ var Job  = bookshelf.Model.extend({
     hasTimestamps: false,
 
     employees:function() {
-        return this.hasMany(Employee, 'empId');
+        return this.hasMany(Employee);
     },
 
 

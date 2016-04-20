@@ -13,7 +13,7 @@ var Department  = bookshelf.Model.extend({
     hasTimestamps: false,
 
     jobs:function() {
-        return this.hasMany(Job, 'jobId');
+        return this.hasMany(Job);
     }
 
 
