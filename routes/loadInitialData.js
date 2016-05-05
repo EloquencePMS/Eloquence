@@ -10,8 +10,7 @@ var Rooms = require('../Models/roomNumber');
 
 
 
-var initialdate =  new Date();
-var date = new Date(initialdate.getFullYear(), initialdate.getMonth(), initialdate.getDate());
+
 var checkins;
 var checkouts;
 var stayover;
@@ -37,8 +36,12 @@ var stayOverCollection = bookshelf.Collection.extend({
 initialDataController
     .route('/')
     .get(check, function(req, res, next){
+        var initialdate =  new Date();
+        var date = new Date(initialdate.getFullYear(), initialdate.getMonth(), initialdate.getDate());
+        
         checkinCollection.query({where: {checkInDate: date}}).fetch()
             .then(function(stay){
+                console.log(initialdate);
                 checkins = stay;
             }).then(function () {
         checkoutCollection.query({where: {checkOutDate: date}}).fetch()
